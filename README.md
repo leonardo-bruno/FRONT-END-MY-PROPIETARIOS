@@ -1,4 +1,4 @@
-# BECK-END-MY-PROPIETARIOS
+# FRONT-END-MY-PROPIETARIOS
 
 Api Rest Back End de MY Propietarios.
 Ahora mismo hay implementado dos metodos que devuelven
