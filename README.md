@@ -11,3 +11,5 @@ La peticiones se hacen a la siguiente direccion
 http://IP-PUBLICA:8080/Propietarios_MY/webresources/com.Operaciones/metodoX/{ELEMENTO}
 
 Las devoluciones son XML
+
+SIN TERMINAR
