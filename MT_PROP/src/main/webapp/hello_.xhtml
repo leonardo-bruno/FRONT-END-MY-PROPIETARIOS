@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
+ 
+<h:head>
+	<title>Inicio</title>
+	<script language="javascript" type="text/javascript">
+		var request = null;
+
+		function createRequest() {
+			try {
+				request = new XMLHttpRequest();
+			} catch (trymicrosoft) {
+				try {
+					request = new ActiveXObject("MsXML2.XMLHTTP");
+				} catch (othermicrosoft) {
+					try {
+						request = new ActiveXObject("Microsoft.XMLHTTP");
+					} catch (failed) {
+						request = null;
+					}
+				}
+			}
+
+			if (request == null)
+				alert("Error creating request object!");
+		}
+		
+		function getMessage(){
+			createRequest();
+			var apart = document.getElementById("apart").value;
+			ap=eval(apart);
+			var url = "http://130.193.15.22:8080/Propietarios_MY/webresources/com.Operaciones/metodo1/"+ap;
+			request.onreadystatechange = handleResponse;
+			request.open("GET", url, true);
+			request.send(null);
+		}
+		
+		function handleResponse() {
+			if (request.readyState==4 && request.status==200){ 
+				var xmlDocument=request.responseXML;
+				var fnames = xmlDocument.getElementsByTagName("bookingno");
+				var lnames = xmlDocument.getElementsByTagName("clientname");
+
+				for(var i=0; i<fnames.length; i++) {
+					var fname = fnames[i].childNodes[0].nodeValue;
+					var lname = lnames[i].childNodes[0].nodeValue;
+					var jerseyno= jerseynos[i].childNodes[0].nodeValue;
+					document.getElementById('bookingno').value=fname;
+					document.getElementById('clientname').value=lname;
+				}
+			}
+
+		}
+</script>
+</h:head>
+<h:body>
+	
+
+
+	 <div align="center">
+            <h:form>
+              <b:container fluid="true">
+                <b:panel style="width: 50%" look="primary" title="Inicio">
+                    <b:row>
+                        <b:column medium-screen="2">
+                            <h:outputText value="Apartamento: " />
+                        </b:column>
+                        <b:column medium-screen="6">
+                            <b:inputText id="apart"  />
+                            <b:inputText id="bookingno"  />
+                            <b:inputText id="clientname"  />
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column span="2" offset="2">
+                            <b:commandButton value="Acceder"  onclick="getMessage()" action="listaTrayectos" look="primary" /> 
+                            
+                        </b:column>
+                    </b:row>
+                </b:panel>
+            </b:container>
+            </h:form>
+        </div>
+</h:body>
+</html>
